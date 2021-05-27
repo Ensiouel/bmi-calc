@@ -4,9 +4,190 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="css/style.css">
+  <title>BMI Calculator v2</title>
 </head>
 <body>
-  <h1>Hello</h1>
+<div class="left--content">
+  <div class="calculator--form">
+    <h3>BMI Calculator</h3>
+    <div class="field">
+      <span class="afield">Choose your gender</span><br>
+        <select id="gender-field"  name="gender" required>
+          <option selected disabled>Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </p>
+    </div><br>
+    <div class="field">
+      <span class="afield">Weight (kg)</span><br>
+      <input id="weight-field" type="text" name="weight" placeholder="Weight" required>
+    </div>
+    <div class="field">
+      <span class="afield">Height (cm)</span><br>
+      <input id="height-field" type="text" name="height" placeholder="Height" required>
+    </div><br>
+    <div class="field">
+      <span class="afield">Age</span><br>
+      <input id="age-field" type="text" name="age" placeholder="Age" required>
+    </div><br>
+    <button type="submit" onclick="getValue()">Calculate</button>
+  </div>
+  <div class="card">
+    <span class="ctitle">What is BMI?</span><br><br>
+    <span class="ccontent">
+    BMI-a value that shows how correct the ratio of height and weight of a person is. According to a special formula, it is calculated whether the subject suffers from obesity or dystrophy. Often this method is used by doctors in the treatment of diseases associated with overweight or underweight.
+  </span>
+  </div>
+</div>
+<div class="right--content">
+  <div class="predict--content">
+    <div class="predict--alert">
+      <span>Your BMI</span>
+      <div id="bmi--value" class="bmi--value">
+        ??
+      </div>
+      <div class="bmi--predict">
+        You have <span id="bmi--predict--value">??</span>
+      </div>
+    </div>
+    <div class="graph">
+      <div class="recommendation">
+        <div class="block">
+          <div class="ricon"><svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="30" fill="#E7E7E7"/>
+            </svg></div>
+            
+          <div class="rtitle">
+            <span id="iv-value" class="block--value">??</span>
+          Ideal weight
+          </div>
+        </div>
+        <div class="block">
+          <div class="ricon"><svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="30" fill="#E7E7E7"/>
+            </svg></div>
+            
+            <div class="rtitle">
+              <span id="f-value" class="block--value">??</span>
+            Fat
+            </div>
+        </div>
+      </div>
+      <div class="peope">
+        <table>
+          <tr>
+            <td>
+              <object id="pm-1" height="215px" type="image/svg+xml" data="images/m_1.svg"></object>
+              <object style="display: none;" id="pf-1" height="215px" type="image/svg+xml" data="images/f_1.svg"></object>
+            </td>
+            <td>
+              <object id="pm-2" height="215px" type="image/svg+xml" data="images/m_2.svg"></object>
+              <object style="display: none;" id="pf-2" height="215px" type="image/svg+xml" data="images/f_2.svg"></object>
+            </td>
+            <td>
+              <object id="pm-3" height="215px" type="image/svg+xml" data="images/m_3.svg"></object>
+              <object style="display: none;" id="pf-3" height="215px" type="image/svg+xml" data="images/f_3.svg"></object>
+            </td>
+          </tr>
+          <tr>
+            <td><div id="graph1">< 18,5</div></td>
+            <td><div id="graph2">18,5 - 24,9</div></td>
+            <td><div id="graph3">> 24,9</div></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="tdoc">
+    <table>
+      <tr id="tdoc-t">
+        <td>BMI, kg/m²</td>
+        <td>State</td>
+      </tr>
+      <tr>
+        <td>Less 18,5</td>
+        <td>Body weight deficit</td>
+      </tr>
+      <tr>
+        <td>18,5 - 24,9</td>
+        <td>Normal body weight</td>
+      </tr>
+      <tr>
+        <td>25 - 29,9</td>
+        <td>Grade 1 - overweight</td>
+      </tr>
+      <tr>
+        <td>30 - 34,9</td>
+        <td>Grade 2 - obesity</td>
+      </tr>
+      <tr>
+        <td>More than 40</td>
+        <td>Grade 3 - very pronounced obesity</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script language="JavaScript">
+  
+function getValue() {
+  var bmi = 0.0;
+  var alert = "";
+
+  var gender = document.getElementById("gender-field").value;
+  var weight = parseInt(document.getElementById("weight-field").value);
+  var height = parseInt(document.getElementById("height-field").value) / 100.0;
+  var age = parseInt(document.getElementById("age-field").value);
+
+  bmi = parseInt(weight / (height * height));
+  iv = 21.7 * height * height;
+  f = (weight - iv) * 100 / weight;
+
+  document.getElementById('bmi--value').style.color = "#000";
+
+  if (gender == "female") {
+    document.getElementById('pf-1').style.display = "inline-block";
+    document.getElementById('pf-2').style.display = "inline-block";
+    document.getElementById('pf-3').style.display = "inline-block";
+
+    document.getElementById('pm-1').style.display = "none";
+    document.getElementById('pm-2').style.display = "none";
+    document.getElementById('pm-3').style.display = "none";
+  } else {
+    document.getElementById('pf-1').style.display = "none";
+    document.getElementById('pf-2').style.display = "none";
+    document.getElementById('pf-3').style.display = "none";
+
+    document.getElementById('pm-1').style.display = "inline-block";
+    document.getElementById('pm-2').style.display = "inline-block";
+    document.getElementById('pm-3').style.display = "inline-block";
+  }
+
+  if (bmi < 18.5) {
+    alert = "Body weight deficit";
+    document.getElementById('bmi--value').style.color = "#f91229";
+  } else if (bmi >= 18.5 && bmi <= 24.9) {
+    alert = "Normal body weight";
+    document.getElementById('bmi--value').style.color = "#2ED16D";
+  } else if (bmi >= 25.0 && bmi <= 29.9) {
+    alert = "Grade 1 - overweight";
+    document.getElementById('bmi--value').style.color = "#f91229";
+  } else if (bmi >= 30.0 && bmi <= 34.9) {
+    alert = "Grade 2 - obesity";
+    document.getElementById('bmi--value').style.color = "#f91229";
+  } else if (bmi >= 40.0) {
+    alert = "Grade 3 - very pronounced obesity";
+    document.getElementById('bmi--value').style.color = "#f91229";
+  }
+
+  document.getElementById('bmi--predict--value').innerHTML = alert;
+  document.getElementById('bmi--value').innerHTML = bmi.toFixed(1);
+  document.getElementById('iv-value').innerHTML = iv.toFixed(1) + " kg.";
+  document.getElementById('f-value').innerHTML = f.toFixed(1) + "%";
+}
+</script>
+
 </body>
 </html>
